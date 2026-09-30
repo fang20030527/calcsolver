@@ -1,5 +1,6 @@
+@import './tokens.css';
 :root {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--sans);
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,8 +14,8 @@ button { font: inherit; cursor: pointer; }
 button:disabled { cursor: default; opacity: .6; }
 [hidden] { display: none !important; }
 
-.warm-page { background: #faf8ef; color: #776e65; }
-.snake-page { background: #0b1513; color: #e3ecd9; color-scheme: dark; }
+.warm-page { background: #f3f0e8; color: #293b32; }
+.snake-page { background: #19281f; color: #e3ecd9; color-scheme: dark; }
 .game-shell { width: min(100%, 524px); margin: 0 auto; padding: 24px 22px 32px; }
 .game-back { display: inline-flex; gap: 8px; align-items: center; min-height: 40px; margin-bottom: 14px; color: inherit; font-size: 14px; font-weight: 650; text-decoration: none; }
 .game-back:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -22,16 +23,16 @@ button:disabled { cursor: default; opacity: .6; }
 .game-eyebrow { margin: 0 0 3px; font-size: 11px; font-weight: 750; letter-spacing: 1.6px; text-transform: uppercase; }
 .game-head h1 { font-size: clamp(38px, 12vw, 64px); line-height: 1; letter-spacing: -2px; margin: 0; font-weight: 850; }
 .score-group { display: flex; gap: 7px; }
-.score-box { display: flex; flex-direction: column; justify-content: center; min-width: 76px; min-height: 60px; padding: 8px 12px; border-radius: 7px; background: #bbada0; color: #fffaf5; text-align: center; font-size: 23px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.score-box { display: flex; flex-direction: column; justify-content: center; min-width: 76px; min-height: 60px; padding: 8px 12px; border-radius: 7px; background: #7c8b69; color: #fffaf5; text-align: center; font-size: 23px; font-weight: 750; font-variant-numeric: tabular-nums; }
 .score-name { color: #f1e9df; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; }
 .game-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 20px 0 14px; }
 .game-toolbar p { font-size: 14px; line-height: 1.55; margin: 0; }
-.game-button { min-height: 44px; flex-shrink: 0; padding: 10px 15px; border: 1px solid transparent; border-radius: 6px; background: #8f7a66; color: #fffaf5; font-weight: 700; font-size: 13px; line-height: 1.3; }
+.game-button { min-height: 44px; flex-shrink: 0; padding: 10px 15px; border: 1px solid transparent; border-radius: 6px; background: #b74d2b; color: #fffaf5; font-weight: 700; font-size: 13px; line-height: 1.3; }
 .game-button:hover { filter: brightness(1.09); }
-.secondary-button { background: transparent; color: #776e65; border-color: #b3a28f; }
+.secondary-button { background: transparent; color: #293b32; border-color: #879775; }
 .toolbar-buttons { display: flex; gap: 6px; }
 .game-stage { position: relative; width: 100%; }
-.tile-board { display: grid; gap: 10px; padding: 12px; border-radius: 10px; background: #bbada0; touch-action: none; user-select: none; }
+.tile-board { display: grid; gap: 10px; padding: 12px; border-radius: 10px; background: #7c8b69; touch-action: none; user-select: none; }
 .tile-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .tile { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; min-width: 0; border-radius: 6px; font-size: clamp(24px, 7vw, 46px); font-weight: 800; letter-spacing: -1px; }
 .tile-0 { background: #cdc1b4; }
@@ -47,41 +48,41 @@ button:disabled { cursor: default; opacity: .6; }
 .tile-1024 { background: #edc53f; color: #f9f6f2; font-size: clamp(20px, 5vw, 32px); }
 .tile-2048 { background: #edc22e; color: #f9f6f2; font-size: clamp(20px, 5vw, 32px); box-shadow: 0 0 22px #edc22e55; }
 .tile-super { background: #3c3a32; color: #f9f6f2; font-size: clamp(17px, 4vw, 28px); }
-.game-message { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; border-radius: 10px; padding: 24px; background: #faf8efed; text-align: center; }
+.game-message { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; border-radius: 10px; padding: 24px; background: #f3f0e8ed; text-align: center; }
 .game-message h2 { margin: 0; font-size: clamp(24px, 7vw, 38px); line-height: 1.2; letter-spacing: -.7px; }
 .game-message p { max-width: 290px; margin: 0; font-size: 15px; line-height: 1.6; }
 .message-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
 .game-status { min-height: 1.6em; margin: 12px 0; font-size: 12px; text-align: center; line-height: 1.6; }
 .direction-pad { display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(2, 44px); justify-content: center; gap: 5px; margin: 14px 0 22px; }
-.direction-pad button { border: 1px solid #c9bdb0; border-radius: 6px; background: #eee4da; color: #776e65; font-size: 24px; font-weight: 650; line-height: 1; touch-action: manipulation; }
+.direction-pad button { border: 1px solid #c9bdb0; border-radius: 6px; background: #eee4da; color: #293b32; font-size: 24px; font-weight: 650; line-height: 1; touch-action: manipulation; }
 .direction-pad button:hover { background: #ede0c8; }
 .direction-pad button:active { transform: translateY(1px); }
 .direction-up { grid-column: 2; grid-row: 1; }
 .direction-left { grid-column: 1; grid-row: 2; }
 .direction-down { grid-column: 2; grid-row: 2; }
 .direction-right { grid-column: 3; grid-row: 2; }
-.game-instructions { padding-top: 18px; border-top: 1px solid #ddd4c8; }
+.game-instructions { padding-top: 18px; border-top: 1px solid #d6d8cc; }
 .game-instructions h2 { font-size: 15px; margin: 0 0 9px; }
 .game-instructions p { margin: 8px 0; font-size: 13px; line-height: 1.7; }
 .game-instructions .game-note { font-size: 11px; opacity: .75; margin-top: 15px; }
 .game-button:focus-visible, .direction-pad button:focus-visible, .game-back:focus-visible, .tile-board:focus-visible { outline: 3px solid #a65325; outline-offset: 4px; }
 
 .snake-shell .game-eyebrow, .snake-shell .game-back { color: #91b2a2; }
-.snake-shell .game-head h1 { color: #c1ef88; font-size: clamp(36px, 11vw, 57px); }
-.snake-shell .score-box { background: #1c312a; color: #daf2c9; border: 1px solid #30483b; }
+.snake-shell .game-head h1 { color: #cfdbb3; font-size: clamp(36px, 11vw, 57px); }
+.snake-shell .score-box { background: #293b32; color: #daf2c9; border: 1px solid #30483b; }
 .snake-shell .score-name { color: #93b09b; }
-.snake-shell .game-button { background: #b9e888; color: #152315; }
+.snake-shell .game-button { background: #cfdbb3; color: #152315; }
 .snake-shell .secondary-button { background: #14241e; border-color: #3c5645; color: #c3ddbc; }
 .snake-stage { padding: 9px; border: 1px solid #34503c; border-radius: 10px; background: #172921; overflow: hidden; }
 #board-snake { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 5px; touch-action: none; user-select: none; }
-.snake-shell .game-message { background: #0b1513e8; color: #e3ecd9; }
-.snake-shell .game-message h2 { color: #c1ef88; }
+.snake-shell .game-message { background: #19281fe8; color: #e3ecd9; }
+.snake-shell .game-message h2 { color: #cfdbb3; }
 .snake-shell .game-status { color: #9db8a7; }
-.snake-shell .direction-pad button { background: #1c312a; color: #c1ef88; border-color: #3c5645; }
+.snake-shell .direction-pad button { background: #293b32; color: #cfdbb3; border-color: #3c5645; }
 .snake-shell .direction-pad button:hover { background: #2b4332; }
 .snake-shell .game-instructions { border-color: #2d4235; color: #a9c1b2; }
 .snake-shell .game-instructions h2, .snake-shell .game-instructions strong { color: #d3e9c7; }
-.snake-shell .game-button:focus-visible, .snake-shell .direction-pad button:focus-visible, .snake-shell .game-back:focus-visible, #board-snake:focus-visible { outline: 3px solid #c1ef88; outline-offset: 3px; }
+.snake-shell .game-button:focus-visible, .snake-shell .direction-pad button:focus-visible, .snake-shell .game-back:focus-visible, #board-snake:focus-visible { outline: 3px solid #cfdbb3; outline-offset: 3px; }
 
 @media (max-width: 420px) {
   .game-shell { padding: 14px 16px 24px; }
@@ -102,3 +103,14 @@ button:disabled { cursor: default; opacity: .6; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* The game rules and board remain familiar; the surrounding UI shares the site. */
+.game-head h1 { font-family:var(--mono); font-weight:500; }
+.game-eyebrow { font-weight:500; font-size:10px; letter-spacing:.1em; }
+.score-box { border-radius:4px; font-family:var(--mono); font-weight:500; }
+.score-name { font:9px var(--sans); }
+.game-button { border-radius:4px; font-weight:500; }
+.game-back { min-height:44px; font-weight:500; }
+.game-instructions h2 { font:400 24px var(--serif); }
+.game-instructions p { color:inherit; }
+.tile-2048 { box-shadow:none; }

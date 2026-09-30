@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #f3f0e8;
+  --surface: #faf8f2;
+  --ink: #293b32;
+  --muted: #626b62;
+  --line: #d6d8cc;
+  --accent: #b74d2b;
+  --accent-hover: #983c20;
+  --sans: 'DM Sans', 'Trebuchet MS', sans-serif;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --mono: 'IBM Plex Mono', Consolas, monospace;
+  --content: 1180px;
+}

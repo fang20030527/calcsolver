@@ -2,7 +2,7 @@
 import { site, categories } from '../data/site';
 import '../styles/site.css';
 interface Props { title?: string; description?: string; noindex?: boolean }
-const { title = 'CalcSolver — Free Online Calculator & Math Tools', description = site.description, noindex = false } = Astro.props;
+const { title = 'CalcSolver | Free Online Calculator & Math Tools', description = site.description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 ---
 <!doctype html>
@@ -21,7 +21,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:image" content={`${site.url}/og-image.svg`} />
-    <meta name="theme-color" content="#d6eaff" />
+    <meta name="theme-color" content="#f3f0e8" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -37,10 +37,10 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="footer-main">
-        <div><a href="/" class="footer-wordmark">CalcSolver<span>.info</span></a><p>Everyday calculations. Clear explanations.<br />A little clarity goes a long way.</p></div>
+        <div><a href="/" class="footer-wordmark">CalcSolver<span>.info</span></a><p>Everyday calculations.<br />A little understanding.</p></div>
         <nav aria-label="Footer"><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></nav>
       </div>
-      <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} CalcSolver.info</span><span>Made for curious minds.</span></div>
+      <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} CalcSolver.info</span><a href="/#calculator">Back to the calculator ↑</a></div>
     </footer>
     <script>
       const menu = document.querySelector<HTMLButtonElement>('.menu-toggle');

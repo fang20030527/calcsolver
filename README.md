@@ -1,6 +1,6 @@
 # CalcSolver.info
 
-A static recreation of the CalcSolver calculator and Code Mode activity experience. Built with Astro and TypeScript. Canonical domain: **https://calcsolver.info**.
+A static CalcSolver calculator and Code Mode activity site, with an editorial visual design and original math guides. Built with Astro and TypeScript. Canonical domain: **https://calcsolver.info**.
 
 ## Run locally
 
@@ -22,7 +22,7 @@ npm run preview
 
 ## Features
 
-- Reference-style responsive homepage and scientific calculator.
+- Warm paper, green and terracotta visual system; responsive homepage and scientific calculator.
 - Safe expression parser: arithmetic, brackets, powers, percentages, factorials, constants and degree-based functions. No JavaScript `eval`.
 - Code Mode: **0000** opens the activity directory. Other four-digit codes open their activities.
 - 130 external activity entries plus two locally hosted games.

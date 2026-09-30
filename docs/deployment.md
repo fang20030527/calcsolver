@@ -1,22 +1,22 @@
 # Deploy calcsolver.info
 
-## 当前部署状态 · 2026-09-30
+## 当前部署状态 · 2026-09-30 视觉改版
 
-- 网站已发布到 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
+- 书刊式视觉新版已发布到 [calcsolver.info](https://calcsolver.info/)，备用地址为 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
 - Pages 项目：`calcsolver-info`，采用 Direct Upload；55 个文件均上传成功。
-- 线上已验收计算器四则运算和本站 2048 游戏，未捕获错误或警告日志。
-- `calcsolver.info` 已加入 Cloudflare 免费 DNS 方案，现有三条 A 记录已扫描导入；域名目前还未切换名称服务器，Pages 自定义域名流程要求先完成此切换。
+- 最新生产部署：`7c0afadb-390b-490f-b2bc-1856f806240a`。
+- 新版已完成计算器、手机布局、分类与文章、活动目录及本站游戏验收；Pages 线上示例得到 `14`，预览没有错误或警告日志。
+- Cloudflare 控制台已显示 `calcsolver.info` DNS 区域为 Active。已在本项目添加正式域名，确认将根域 A 记录更新为代理 CNAME：`calcsolver.info` → `calcsolver-info.pages.dev`。
+- Pages 自定义域名已显示 Active 与 SSL enabled。正式域名首页、`robots.txt` 和 `sitemap.xml` 均返回 200；浏览器计算 `2+3*4` 得到 `14`，页面加载的最终样式文件与本地构建一致。
 
-下一步在域名注册商修改 `calcsolver.info` 的 **Nameservers（名称服务器）**，将现有四个 Name.com 名称服务器替换为 Cloudflare 为这个域名实际分配的两个值：
+本域名由 Cloudflare 分配的名称服务器为：
 
 ```text
 eric.ns.cloudflare.com
 shubhi.ns.cloudflare.com
 ```
 
-这是名称服务器设置，不能把这两个地址填写为 A 或 CNAME 记录。当前 Name.com 登录页已准备；需要域名账户的登录会话才能完成这一步。
-
-保存后，在 Cloudflare 完成域名激活，再回到 Pages 项目的 Custom domains 添加 `calcsolver.info`，按页面提示将根域的停车 A 记录替换为 Pages 的 CNAME。记录目标必须使用当前项目实际显示的 `calcsolver-info.pages.dev`。等待 DNS 与 TLS 状态通过后，再验证 `https://calcsolver.info/`。当前公开访问地址仍是上面的 `pages.dev` 链接。
+本域名的名称服务器、Pages 绑定与 HTTPS 激活均已完成验收。当前仅绑定根域；`www` 不是本次已配置的自定义域名。
 
 Build and verify before uploading:
 

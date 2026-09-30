@@ -101,5 +101,5 @@ The four tasks cover all approved pages, components, mathematics, external and l
 - [x] Publish the verified static build to `calcsolver-info.pages.dev` using the existing signed-in Cloudflare session.
 - [x] Verify production arithmetic and local game loading/play.
 - [x] Prepare the free Cloudflare DNS zone and read the assigned nameservers.
-- [ ] Replace the registrar nameservers. Requires a Name.com login session or the user's manual update.
-- [ ] After Cloudflare activates the zone, attach `calcsolver.info` to Pages and verify HTTPS.
+- [x] Registrar delegation is now active on Cloudflare, confirmed in its dashboard during the visual redesign.
+- [x] Attach `calcsolver.info` to Pages and verify HTTPS. The custom domain shows Active and SSL enabled; homepage, robots and sitemap return 200.
