@@ -51,4 +51,6 @@ Display results use JavaScript floating-point arithmetic, rounded to 12 signific
 
 See [deployment instructions](docs/deployment.md). Both Cloudflare Pages and Vercel can serve `dist/`; no database or server application is needed. Purchasing a domain does not configure hosting or DNS automatically.
 
-Cloudflare Pages is the selected hosting platform. On Windows, run `./scripts/package-pages.ps1` after verification to create `artifacts/calcsolver-info-cloudflare-pages.zip`. This archive contains the built site at its root and can be uploaded through the Pages dashboard. Screenshots are also saved in `artifacts/`.
+Cloudflare Pages is the selected hosting platform. The [deployment workflow](.github/workflows/deploy.yml) verifies and publishes every push to `main` to the existing `calcsolver-info` project. Configure its repository secret and variable as described in the deployment instructions. A failed verification stops publication.
+
+For a manual upload, run `./scripts/package-pages.ps1` on Windows after verification to create `artifacts/calcsolver-info-cloudflare-pages.zip`. Screenshots are also saved in `artifacts/`.

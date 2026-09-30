@@ -1,6 +1,6 @@
 # Deploy calcsolver.info
 
-## 当前部署状态 · 2026-09-30 视觉改版重新部署
+## 手动部署记录 · 2026-09-30 视觉改版
 
 - 纸白、石墨黑与明黄的视觉新版已发布到 [calcsolver.info](https://calcsolver.info/)，备用地址为 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
 - Pages 项目：`calcsolver-info`，采用 Direct Upload；55 个文件均上传成功。
@@ -32,7 +32,22 @@ The static site is in `dist/`. Keep the project source and lockfile in version c
 
 ## Cloudflare Pages
 
-这是本项目已选定的部署平台。源码已推送到 [GitHub 仓库](https://github.com/fang20030527/calcsolver)，视觉提交位于 `codex/calcsolver-info` 分支。当前 Pages 项目采用 Direct Upload，Git 推送后需要单独上传构建包才能更新生产网站。
+这是本项目已选定的部署平台。源码位于 [GitHub 仓库](https://github.com/fang20030527/calcsolver)的 `main` 分支。现有 Pages 项目采用 Direct Upload，使用 GitHub Actions 与 Wrangler 上传构建结果即可自动部署，无需更换项目或域名。[Cloudflare 官方 CI 说明](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
+
+### 自动部署
+
+工作流位于 [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml)，每次推送到 `main` 时运行，也支持从 GitHub Actions 手动触发。发布顺序为 Node 24 → `npm ci` → `npm run verify` → 上传 `dist/` 到 `calcsolver-info` 的生产分支 `main`。检查失败时不会上传。生产部署按顺序执行，避免并行上传覆盖。
+
+在 GitHub 仓库 Settings → Secrets and variables → Actions 中设置：
+
+- Repository variable `CLOUDFLARE_ACCOUNT_ID`：`e4efddba8ed58e7be7a8ee4fb831b40d`。
+- Repository secret `CLOUDFLARE_API_TOKEN`：部署专用 Cloudflare API 令牌，仅授予本账号的 Cloudflare Pages Edit 权限。该权限覆盖账号内 Pages 项目；不要添加 DNS、Workers 或账单权限。
+
+令牌只保存在 GitHub 加密 Secret 中，不写入源码、`.env` 或构建包。令牌到期或撤销后，需要更新同名 Secret。`GITHUB_TOKEN` 由 Actions 自动提供，仅用于记录 GitHub deployment。
+
+运行结果与日志见 [GitHub Actions](https://github.com/fang20030527/calcsolver/actions/workflows/deploy.yml)。成功后检查正式域名的首页 H1 含 `CalcSolver`，并检查 canonical、JSON-LD、`robots.txt` 和 `sitemap.xml`。
+
+### 手动上传备用方式
 
 Windows 上运行 `./scripts/package-pages.ps1`，生成 `artifacts/calcsolver-info-cloudflare-pages.zip`。上传包内的 `index.html` 位于根目录，包含本站所有页面与资源。
 
