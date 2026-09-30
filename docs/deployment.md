@@ -81,7 +81,9 @@ The repository includes `vercel.json` for the static Astro build. Import the Git
 
 Create a working contact mailbox before setting `PUBLIC_CONTACT_EMAIL`. The contact link is determined at build time.
 
-No first-party ads or analytics are included. Connect your own publisher/analytics account if desired, and update the privacy policy to match actual behavior. Do not reuse the reference site's account identifiers.
+Self-hosted Plausible analytics is configured in `src/components/Analytics.astro` with the dedicated `calcsolver.info` script: `https://stats.blackholeenglish.com/js/pa-SrqWkZG1nlPuPTtAm1TeR.js`. The site is registered in the existing Plausible instance with reporting timezone `Asia/Shanghai`. The component is included in all page heads, including local games, and initializes only on `calcsolver.info` in production builds. Development and `pages.dev` previews do not send analytics events.
+
+The privacy policy describes page views, engagement, outbound links, downloads and form submission events. Calculator expressions and results are not sent. No first-party ads are included. If the analytics host or tracking settings change, update the component and policy together.
 
 ## Activity sources
 

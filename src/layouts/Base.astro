@@ -1,6 +1,7 @@
 ---
 import { site, categories } from '../data/site';
 import FontLinks from '../components/FontLinks.astro';
+import Analytics from '../components/Analytics.astro';
 import { canonicalUrl, pageStructuredData, serializeStructuredData, type Breadcrumb, type StructuredData } from '../lib/seo';
 import '../styles/site.css';
 interface Props {
@@ -28,6 +29,7 @@ const image = `${site.url}/og-image.png`;
     {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <FontLinks />
+    <Analytics />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
