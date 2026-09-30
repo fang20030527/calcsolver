@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Calculator from '../components/Calculator.astro';
+import Activities from '../components/Activities.astro';
+import { categories } from '../data/site';
+import { articles } from '../data/articles';
+---
+<Base>
+  <section class="home-intro content-wide">
+    <div class="intro-eyebrow"><span></span> FREE ONLINE CALCULATOR</div>
+    <h1>What is CalcSolver?</h1>
+    <p><strong>CalcSolver</strong> makes everyday math a little easier. A practical online calculator and a collection of clear explanations for students, teachers and anyone with a number to work out.</p>
+    <div class="intro-tags"><span>Free to use</span><i></i><span>No account needed</span><i></i><span>Made for your browser</span></div>
+  </section>
+  <div class="calculator-stage"><div class="stage-mark stage-mark-left" aria-hidden="true">×</div><div class="stage-mark stage-mark-right" aria-hidden="true">÷</div><Calculator /></div>
+  <section class="why-section content-wide">
+    <div class="section-title"><span class="section-label">SMALL TOOL. BIG POSSIBILITIES.</span><h2>Why choose CalcSolver?</h2><p>Everything you need to get from a question to a clear answer.</p></div>
+    <div class="feature-grid">
+      <article class="feature"><span class="feature-symbol" aria-hidden="true">ƒ<span>ₓ</span></span><h3>More than the basics</h3><p>From quick arithmetic to roots, powers, logarithms and trigonometry. Open Scientific mode for the full set.</p></article>
+      <article class="feature"><span class="feature-symbol" aria-hidden="true">ϟ</span><h3>Ready in an instant</h3><p>Calculations happen right in your browser. No waiting for a server, downloading an app or creating an account.</p></article>
+      <article class="feature"><span class="feature-symbol" aria-hidden="true">π</span><h3>Understand the answer</h3><p>Explore straightforward explanations and worked examples. Build confidence, one small calculation at a time.</p></article>
+    </div>
+  </section>
+  <section class="how-section content-narrow">
+    <span class="section-label">LET’S WORK IT OUT</span><h2>How to use CalcSolver</h2><p>Tap the keys or type an expression, then press <strong>=</strong> or <strong>Enter</strong>. Use brackets to group operations. Clear the screen with <strong>C</strong>, or use <strong>⌫</strong> to correct a single character.</p>
+    <div class="example-strip"><span>Try a little math</span><code>2 + 3 × 4</code><span class="example-equals">=</span><strong>14</strong><button data-example="2+3*4">Try it ↗</button></div>
+    <details class="function-guide"><summary>Available functions & keyboard shortcuts <span>+</span></summary><div class="function-guide-grid"><div><h3>Scientific functions</h3><p><code>sin(30)</code>, <code>cos(60)</code>, <code>tan(45)</code> use degrees. <code>log(100)</code> uses base 10; <code>ln(e)</code> uses the natural logarithm.</p></div><div><h3>Powers & constants</h3><p>Use <code>2^8</code> for powers, <code>sqrt(81)</code> for roots and <code>5!</code> for factorials. Constants <code>pi</code> and <code>e</code> are supported.</p></div><div><h3>Everyday calculations</h3><p>Four operations, negative numbers, brackets and decimal values. A percentage such as <code>25%</code> is evaluated as <code>0.25</code>.</p></div><div><h3>Your keyboard works too</h3><p>Type an expression. <kbd>Enter</kbd> calculates, <kbd>Backspace</kbd> deletes and <kbd>Esc</kbd> clears. Click a key or the display to get started.</p></div></div></details>
+  </section>
+  <section class="math-section content-wide">
+    <div class="section-title"><span class="section-label">A LITTLE KNOW-HOW</span><h2>CalcSolver Math Solutions</h2><p>Simple explanations for the questions that come up again and again.</p></div>
+    <div class="topic-grid">{categories.map(category => <article class="topic-card"><div class="topic-card-heading"><span class="topic-symbol" aria-hidden="true">{category.symbol}</span><h3>{category.heading}</h3></div><p>{category.description}</p><ul>{articles.filter(article=>article.category===category.slug).slice(0,6).map(article=><li><a href={`/${article.slug}/`}>{article.title}<span aria-hidden="true">↗</span></a></li>)}</ul><a class="all-topics-link" href={`/category/${category.slug}/`}>View all {articles.filter(article=>article.category===category.slug).length} topics <span>→</span></a></article>)}</div>
+  </section>
+  <section class="everyday-section content-narrow"><span class="section-label">MATH, WHEREVER YOU ARE</span><h2>When should you use a calculator?</h2><p>Checking a homework answer. Splitting a bill. Working out a discount. Converting a fraction. Sometimes all you need is a reliable tool and a moment of clarity.</p><p>CalcSolver runs on your phone, tablet or computer. Keep it open for quick calculations, and explore the math guides whenever you want to understand the method behind the result.</p><a class="back-to-calculator" href="#calculator">Back to the calculator ↑</a></section>
+  <Activities />
+</Base>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-example]').forEach(button => button.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('calcsolver:example', { detail: { expression: button.dataset.example } }));
+    document.querySelector('#calculator')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  }));
+</script>

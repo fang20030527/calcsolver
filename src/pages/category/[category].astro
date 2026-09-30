@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categories } from '../../data/site';
+import { articles } from '../../data/articles';
+export function getStaticPaths() { return categories.map(category=>({params:{category:category.slug},props:{category}})); }
+const { category } = Astro.props;
+const topics = articles.filter(article=>article.category===category.slug);
+---
+<Base title={`${category.heading} — Math Guides | CalcSolver`} description={category.description}>
+  <div class="page-shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span> / </span><span>{category.heading}</span></nav><span class="section-label">{topics.length} CLEAR EXPLANATIONS</span><h1>{category.heading}</h1><p class="page-lead">{category.description} Start with a question and work through the answer at your own pace.</p><ul class="category-topic-list">{topics.map(article=><li><a href={`/${article.slug}/`}><div><h2>{article.title}</h2><p>{article.description}</p></div><span aria-hidden="true">↗</span></a></li>)}</ul><div class="calculator-cta"><span>Have a calculation to check?</span><a href="/#calculator">Open the calculator →</a></div></div>
+</Base>

@@ -1,4 +1,6 @@
-# calcsolver.info 复刻设计（待确认）
+# calcsolver.info 复刻设计（已确认）
+
+用户已确认本方案，并选择 Cloudflare Pages 作为部署平台。
 
 ## 目标
 

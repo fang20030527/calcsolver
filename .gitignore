@@ -1,0 +1,10 @@
+node_modules/
+dist/
+artifacts/
+.astro/
+.vercel/
+.wrangler/
+.env
+.env.*
+!.env.example
+*.log

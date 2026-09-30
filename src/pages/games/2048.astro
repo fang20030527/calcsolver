@@ -1,0 +1,60 @@
+---
+import '../../styles/games.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="Play 2048 on CalcSolver. Slide matching tiles, build your score, and reach the 2048 tile." />
+    <meta name="theme-color" content="#faf8ef" />
+    <link rel="canonical" href="https://calcsolver.info/games/2048/" />
+    <title>2048 — CalcSolver</title>
+  </head>
+  <body class="warm-page">
+    <main class="game-shell warm-shell" data-game="2048">
+      <a class="game-back" href="/" target="_top"><span aria-hidden="true">←</span> Calculator</a>
+      <header class="game-head">
+        <div>
+          <p class="game-eyebrow">CalcSolver Arcade</p>
+          <h1>2048</h1>
+        </div>
+        <div class="score-group" aria-label="Your scores">
+          <div class="score-box"><span class="score-name">Score</span><span id="score-2048">0</span></div>
+          <div class="score-box"><span class="score-name">Best</span><span id="best-2048">0</span></div>
+        </div>
+      </header>
+      <div class="game-toolbar">
+        <p>Join the numbers. Reach <strong>2048!</strong></p>
+        <button class="game-button" type="button" data-restart-2048>New game</button>
+      </div>
+      <div class="game-stage">
+        <div class="tile-board" id="board-2048" role="grid" aria-label="2048 game board" aria-rowcount="4" aria-colcount="4" tabindex="0"></div>
+        <div class="game-message" id="message-2048" hidden>
+          <h2 id="message-title-2048"></h2>
+          <p id="message-detail-2048"></p>
+          <div class="message-actions">
+            <button class="game-button" type="button" id="continue-2048">Keep playing</button>
+            <button class="game-button secondary-button" type="button" data-restart-2048>Try again</button>
+          </div>
+        </div>
+      </div>
+      <p class="game-status" id="status-2048" role="status" aria-live="polite">Join matching tiles to reach 2048.</p>
+      <div class="direction-pad" role="group" aria-label="Move tiles">
+        <button class="direction-up" type="button" data-direction="up" aria-label="Move up">↑</button>
+        <button class="direction-left" type="button" data-direction="left" aria-label="Move left">←</button>
+        <button class="direction-down" type="button" data-direction="down" aria-label="Move down">↓</button>
+        <button class="direction-right" type="button" data-direction="right" aria-label="Move right">→</button>
+      </div>
+      <section class="game-instructions" aria-labelledby="how-to-play">
+        <h2 id="how-to-play">How to play</h2>
+        <p>Use your <strong>arrow keys or WASD</strong>, swipe the board, or tap the arrows above. Tiles with the same number combine when they touch. Each move adds one new tile.</p>
+        <p class="game-note">Your best score is saved in this browser.</p>
+      </section>
+    </main>
+    <script>
+      import '../../scripts/local-games';
+    </script>
+  </body>
+</html>

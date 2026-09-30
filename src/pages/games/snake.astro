@@ -1,0 +1,61 @@
+---
+import '../../styles/games.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="Play Snake on CalcSolver. Collect apples, grow your snake, and beat your best score." />
+    <meta name="theme-color" content="#0b1513" />
+    <link rel="canonical" href="https://calcsolver.info/games/snake/" />
+    <title>Snake — CalcSolver</title>
+  </head>
+  <body class="snake-page">
+    <main class="game-shell snake-shell" data-game="snake">
+      <a class="game-back" href="/" target="_top"><span aria-hidden="true">←</span> Calculator</a>
+      <header class="game-head">
+        <div>
+          <p class="game-eyebrow">CalcSolver Arcade</p>
+          <h1>Snake</h1>
+        </div>
+        <div class="score-group" aria-label="Your scores">
+          <div class="score-box"><span class="score-name">Score</span><span id="score-snake">0</span></div>
+          <div class="score-box"><span class="score-name">Best</span><span id="best-snake">0</span></div>
+        </div>
+      </header>
+      <div class="game-toolbar">
+        <p>A little longer. One apple at a time.</p>
+        <div class="toolbar-buttons">
+          <button class="game-button" type="button" id="toggle-snake">Start game</button>
+          <button class="game-button secondary-button" type="button" data-restart-snake>Restart</button>
+        </div>
+      </div>
+      <div class="game-stage snake-stage">
+        <canvas id="board-snake" width="480" height="480" tabindex="0" role="img" aria-label="Snake game board. Use arrow keys, WASD, swipe, or the directional buttons to move.">Your browser needs canvas support to play Snake.</canvas>
+        <div class="game-message" id="message-snake">
+          <h2 id="message-title-snake">Ready to play?</h2>
+          <p id="message-detail-snake">Collect apples. Avoid the walls and your own tail.</p>
+          <button class="game-button" type="button" id="action-snake">Start game</button>
+        </div>
+      </div>
+      <p class="game-status" id="status-snake" role="status" aria-live="polite">Collect apples. Avoid the walls and your own tail.</p>
+      <div class="direction-pad" role="group" aria-label="Steer the snake">
+        <button class="direction-up" type="button" data-direction="up" aria-label="Move up">↑</button>
+        <button class="direction-left" type="button" data-direction="left" aria-label="Move left">←</button>
+        <button class="direction-down" type="button" data-direction="down" aria-label="Move down">↓</button>
+        <button class="direction-right" type="button" data-direction="right" aria-label="Move right">→</button>
+      </div>
+      <section class="game-instructions" aria-labelledby="how-to-play">
+        <h2 id="how-to-play">How to play</h2>
+        <p>Use <strong>arrow keys or WASD</strong>, swipe the board, or tap the arrows above. Eat the apples for 10 points each. Avoid the edges and your own snake.</p>
+        <p>Press <strong>Space or P</strong> to pause or resume. The game pauses when you leave the page.</p>
+        <p class="game-note">Your best score is saved in this browser.</p>
+      </section>
+    </main>
+    <script>
+      import '../../scripts/local-games';
+    </script>
+  </body>
+</html>

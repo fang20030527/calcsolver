@@ -1,0 +1,42 @@
+---
+const scientificKeys = [
+  ['sin', 'sin('], ['cos','cos('], ['tan','tan('], ['log','log('], ['ln','ln('],
+  ['x²','^2'], ['xʸ','^'], ['π','pi'], ['e','e'], ['n!','!'],
+  ['(','('], [')',')'], ['%','%'], ['|x|','abs('], ['1/x','reciprocal'],
+];
+---
+<section class="calculator-wrap" aria-label="Calculator">
+  <div class="calculator" id="calculator">
+    <div class="calculator-top">
+      <span class="calc-indicator"><i></i> CALCSOLVER</span>
+      <label class="code-toggle">Code Mode<input type="checkbox" id="code-mode" role="switch" aria-label="Code Mode" /><span class="toggle-track" aria-hidden="true"></span></label>
+    </div>
+    <div class="display-shell">
+      <div class="display-meta"><span id="calc-mode-label">STANDARD</span><span id="calc-angle-label">DEG</span></div>
+      <label class="sr-only" for="expression">Calculation</label>
+      <input id="expression" class="calc-display" value="0" autocomplete="off" spellcheck="false" inputmode="decimal" aria-describedby="calc-status" />
+      <div id="calc-status" class="calc-status" aria-live="polite">Ready when you are.</div>
+    </div>
+    <div class="calculator-tools"><button id="scientific-toggle" aria-controls="scientific-keys" aria-expanded="false">Scientific <span aria-hidden="true">⌄</span></button><button id="copy-result" aria-label="Copy result" title="Copy result"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button><button data-action="backspace" aria-label="Delete last character" title="Backspace">⌫</button></div>
+    <div id="scientific-keys" class="scientific-keys" hidden>
+      {scientificKeys.map(([label, value]) => <button class="science-key" data-value={value}>{label}</button>)}
+      <p>Angles in degrees · close function brackets before calculating</p>
+    </div>
+    <div class="calc-keypad">
+      <button class="calc-key clear-key" data-action="clear" aria-label="Clear">C</button>
+      <button class="calc-key operator-key" data-value="sqrt(" aria-label="Square root">√</button>
+      <button class="calc-key operator-key" data-value="/" aria-label="Divide">÷</button>
+      <button class="calc-key operator-key" data-value="*" aria-label="Multiply">×</button>
+      <button class="calc-key" data-value="7">7</button><button class="calc-key" data-value="8">8</button><button class="calc-key" data-value="9">9</button><button class="calc-key operator-key" data-value="-" aria-label="Subtract">−</button>
+      <button class="calc-key" data-value="4">4</button><button class="calc-key" data-value="5">5</button><button class="calc-key" data-value="6">6</button><button class="calc-key operator-key" data-value="+" aria-label="Add">+</button>
+      <button class="calc-key" data-value="1">1</button><button class="calc-key" data-value="2">2</button><button class="calc-key" data-value="3">3</button><button class="calc-key equals-key" data-action="equals" aria-label="Equals">=</button>
+      <button class="calc-key zero-key" data-value="0">0</button><button class="calc-key" data-value=".">.</button>
+    </div>
+    <div class="calculator-base"><span>PRECISION, SIMPLIFIED.</span><i aria-hidden="true"></i></div>
+  </div>
+  <p class="keyboard-hint"><kbd>Enter</kbd> to calculate <span>·</span> <kbd>Esc</kbd> to clear <span>·</span> Keyboard friendly</p>
+  <details class="code-help"><summary>A little more to explore</summary><p>Turn on Code Mode and enter <strong>0000</strong> to explore activities. Have a four-digit activity code? Enter it to go straight there.</p></details>
+</section>
+<script>
+  import '../scripts/calculator';
+</script>

@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { articles, fractionInfo } from '../data/articles';
+import { categories } from '../data/site';
+export function getStaticPaths() { return articles.map(article=>({params:{slug:article.slug},props:{article}})); }
+const { article } = Astro.props;
+const category = categories.find(item=>item.slug===article.category)!;
+const n = article.numerator ?? 0;
+const d = article.denominator ?? 1;
+const info = fractionInfo(n,d);
+const related = articles.filter(item=>item.category===article.category && item.slug!==article.slug).slice(0,4);
+---
+<Base title={`${article.title} | CalcSolver`} description={article.description}>
+  <article class="page-shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span> / </span><a href={`/category/${category.slug}/`}>{category.name}</a></nav>
+    <header class="article-header"><span class="section-label">{category.heading.toUpperCase()}</span><h1>{article.title}</h1><p>{article.description}</p><div class="article-meta"><span>CalcSolver Math Guides</span><span>{article.kind==='algebra'?'3':'2'} minute read</span></div></header>
+    {article.kind==='percent' && <>
+      <div class="answer-card"><div class="fraction-visual" style={`--fraction:${n/d*100}%`} role="img" aria-label={`${n} of ${d} equal parts shaded`}></div><div><span class="answer-label">THE QUICK ANSWER</span><div class="answer-equation"><span>{n}/{d}</span><span>{info.approximate?'≈':'='}</span><strong>{info.decimal}</strong><span>{info.approximate?'≈':'='}</span><strong>{info.percent}%</strong></div><p>{info.approximate?'Decimal and percent values are rounded.':'Three ways to write the same value.'}</p></div></div>
+      <div class="article-body"><h2>From a fraction to a decimal</h2><p>The top number is the numerator; the bottom number is the denominator. To convert {n}/{d}, divide {n} by {d}.</p><p class="worked-example">{n} ÷ {d} {info.approximate?'≈':'='} {info.decimal}</p><p>{info.approximate?'This fraction has a repeating decimal. The value shown above is rounded to six decimal places.':'The division ends exactly, so the decimal shown is exact.'}</p><h2>From a decimal to a percentage</h2><p>A percentage measures a value out of one hundred. Multiply the decimal by 100 and write a percent sign.</p><p class="worked-example">({n} ÷ {d}) × 100 {info.approximate?'≈':'='} {info.percent}%</p><h2>Conversion at a glance</h2><table class="conversion-table"><thead><tr><th>Fraction</th><th>Decimal</th><th>Percent</th></tr></thead><tbody><tr><td>{n}/{d}</td><td>{info.approximate?'≈ ':''}{info.decimal}</td><td>{info.approximate?'≈ ':''}{info.percent}%</td></tr></tbody></table><h2>Picture the value</h2><p>Imagine a whole divided into {d} equal pieces. Taking {n} of those pieces gives you {n}/{d} of the whole. The blue portion in the circle above shows this share.</p><h2>Check your method</h2><p>Always divide the numerator by the denominator, in that order. To turn a percentage back into a decimal, divide by 100. If you need an exact answer for a repeating value, keep the fraction instead of rounding it.</p></div>
+    </>}
+    {article.kind==='equivalent' && <>
+      <div class="answer-card"><div class="fraction-visual" style={`--fraction:${n/d*100}%`} role="img" aria-label={`${n} of ${d} equal parts shaded`}></div><div><span class="answer-label">THE QUICK ANSWER</span><div class="answer-equation"><span>{n}/{d}</span><span>=</span><strong>{n*2}/{d*2}</strong><span>=</span><strong>{n*3}/{d*3}</strong></div><p>Different numbers. The same proportion.</p></div></div>
+      <div class="article-body"><h2>How to find equivalent fractions</h2><p>Multiply both the numerator and the denominator by the same nonzero number. The pieces become smaller, but the share of the whole stays the same.</p><p class="worked-example">({n} × 2) / ({d} × 2) = {n*2}/{d*2}</p><h2>More examples</h2><table class="conversion-table"><thead><tr><th>Multiplier</th><th>Calculation</th><th>Equivalent fraction</th></tr></thead><tbody>{[2,3,4,5,10].map(multiplier=><tr><td>× {multiplier}</td><td>({n} × {multiplier}) / ({d} × {multiplier})</td><td>{n*multiplier}/{d*multiplier}</td></tr>)}</tbody></table><h2>Why the value stays the same</h2><p>Multiplying both parts by the same number is the same as multiplying the fraction by one. For example, 2/2 = 1, so multiplying by 2/2 cannot change its value.</p><p class="worked-example">{n}/{d} × 2/2 = {n*2}/{d*2}</p><h2>Check two fractions</h2><p>Cross-multiply to compare them. If the two products match, the fractions are equivalent. Their denominators must be nonzero.</p><p class="worked-example">{n} × {d*2} = {n*d*2}, and {n*2} × {d} = {n*d*2}</p><h2>A common mistake</h2><p>Adding the same number to the numerator and denominator does not generally produce an equivalent fraction. Use multiplication or division of both parts by the same nonzero factor.</p></div>
+    </>}
+    {article.kind==='algebra' && <div class="article-body">{article.sections?.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}{section.example && <p class="worked-example">{section.example}</p>}{section.bullets && <ul>{section.bullets.map(bullet=><li>{bullet}</li>)}</ul>}</section>)}</div>}
+    <div class="calculator-cta"><span>Try the numbers for yourself.</span><a href="/#calculator">Open CalcSolver →</a></div>
+    <aside class="related-topics"><h2>Keep exploring</h2><ul>{related.map(item=><li><a href={`/${item.slug}/`}>{item.title} ↗</a></li>)}</ul></aside>
+  </article>
+</Base>
