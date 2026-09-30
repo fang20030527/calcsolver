@@ -21,13 +21,13 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:image" content={`${site.url}/og-image.svg`} />
-    <meta name="theme-color" content="#f3f0e8" />
+    <meta name="theme-color" content="#f7f7f2" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="header-inner">
-        <a class="wordmark" href="/" aria-label="CalcSolver home">Calc<span>Solver</span></a>
+        <div class="header-brand"><a class="wordmark" href="/" aria-label="CalcSolver home">Calc<span>Solver</span></a><span class="brand-caption">Calculator & math guides</span></div>
         <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
         <nav id="primary-navigation" aria-label="Primary">
           {categories.map(category => <a href={`/category/${category.slug}/`} aria-current={Astro.url.pathname.startsWith(`/category/${category.slug}`) ? 'page' : undefined}>{category.name}</a>)}
@@ -37,7 +37,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="footer-main">
-        <div><a href="/" class="footer-wordmark">CalcSolver<span>.info</span></a><p>Everyday calculations.<br />A little understanding.</p></div>
+        <div class="footer-brand"><a href="/" class="footer-wordmark">CalcSolver<span>.info</span></a><p>Everyday calculations.<br />A little understanding.</p></div>
         <nav aria-label="Footer"><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></nav>
       </div>
       <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} CalcSolver.info</span><a href="/#calculator">Back to the calculator ↑</a></div>

@@ -4,36 +4,103 @@ import Calculator from '../components/Calculator.astro';
 import Activities from '../components/Activities.astro';
 import { categories } from '../data/site';
 import { articles } from '../data/articles';
+
+const examples = [
+  { label: 'Order of operations', expression: '2+3*4', display: '2 + 3 × 4', aria: 'Try 2 plus 3 times 4' },
+  { label: 'A percentage', expression: '125*15%', display: '125 × 15%', aria: 'Try 15 percent of 125' },
+  { label: 'A square root', expression: 'sqrt(81)', display: '√81', aria: 'Try the square root of 81' },
+];
 ---
 <Base>
   <section class="home-hero content-wide" aria-labelledby="home-title">
     <div class="home-intro">
-      <p class="section-label">Online calculator & math guides</p>
-      <h1 id="home-title">Make sense of the numbers.</h1>
+      <p class="section-label">Your everyday calculator</p>
+      <h1 id="home-title">Make sense of the <span class="number-word">numbers.</span></h1>
       <p class="intro-description">A calculator for the everyday questions. Clear explanations for the ones that need a little more thought.</p>
       <a class="text-link" href="#math-guides">Explore the math guides <span aria-hidden="true">↗</span></a>
-      <div class="quick-examples">
-        <p>Try a calculation</p>
-        <div class="example-buttons">
-          <button data-example="2+3*4" aria-label="Try 2 plus 3 times 4">2 + 3 × 4 <span aria-hidden="true">↗</span></button>
-          <button data-example="125*15%" aria-label="Try 15 percent of 125">125 × 15% <span aria-hidden="true">↗</span></button>
-          <button data-example="sqrt(81)" aria-label="Try the square root of 81">√81 <span aria-hidden="true">↗</span></button>
-        </div>
-      </div>
       <p class="intro-note">Free to use. No account needed.</p>
+
+      <a class="fraction-study" href="/1-4-as-a-percent-and-decimal/" aria-label="Learn why one quarter, 0.25 and 25 percent are the same value">
+        <div class="fraction-study-top">
+          <div class="quarter-pieces" role="img" aria-label="One of four equal parts shaded">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span class="fraction-study-caption">Different forms. Same value.</span>
+          <span class="fraction-study-arrow" aria-hidden="true">↗</span>
+        </div>
+        <div class="fraction-study-equation" aria-hidden="true"><span>1/4</span><span>=</span><span>0.25</span><span>=</span><span>25%</span></div>
+      </a>
     </div>
-    <div class="calculator-stage"><Calculator /></div>
+
+    <div class="calculator-stage">
+      <Calculator />
+      <aside class="quick-examples" aria-labelledby="examples-title">
+        <h2 id="examples-title">Try a calculation</h2>
+        <p class="examples-description">A few ways to get started.</p>
+        <div class="example-buttons">
+          {examples.map(example => (
+            <button data-example={example.expression} aria-label={example.aria}>
+              <span class="example-label">{example.label}</span>
+              <span class="example-expression">{example.display}<span aria-hidden="true">↗</span></span>
+            </button>
+          ))}
+        </div>
+        <div class="workspace-note">
+          <span class="workspace-note-symbol" aria-hidden="true">⌨</span>
+          <p>Your keyboard<br />works here, too.</p>
+          <span>Type an expression.<br />Press <kbd>Enter</kbd> for the answer.</span>
+        </div>
+      </aside>
+    </div>
   </section>
-  <section class="math-section content-wide" id="math-guides" aria-labelledby="guides-title">
-    <div class="section-title"><p class="section-label">Understand the method</p><h2 id="guides-title">A little math, made clear.</h2><p>Start with a question. Work through the answer.</p></div>
-    <div class="topic-directory">{categories.map(category => <article class="topic-row"><div class="topic-intro"><h3><a href={`/category/${category.slug}/`}>{category.heading}</a></h3><p>{category.description}</p><a class="all-topics-link" href={`/category/${category.slug}/`}>All {articles.filter(article=>article.category===category.slug).length} guides <span aria-hidden="true">→</span></a></div><ul class="topic-links">{articles.filter(article=>article.category===category.slug).slice(0,6).map(article=><li><a href={`/${article.slug}/`}>{article.title}<span aria-hidden="true">↗</span></a></li>)}</ul></article>)}</div>
+
+  <section class="math-section" id="math-guides" aria-labelledby="guides-title">
+    <div class="content-wide">
+      <div class="section-title">
+        <p class="section-label">Math guides</p>
+        <h2 id="guides-title">A little math, made clear.</h2>
+        <p>Start with a question. Work through the answer.</p>
+      </div>
+      <div class="topic-directory">
+        {categories.map(category => (
+          <article class="topic-row">
+            <span class="topic-symbol" aria-hidden="true">{category.symbol}</span>
+            <div class="topic-intro">
+              <h3><a href={'/category/' + category.slug + '/'}>{category.heading}</a></h3>
+              <p>{category.description}</p>
+              <a class="all-topics-link" href={'/category/' + category.slug + '/'}>All {articles.filter(article => article.category === category.slug).length} guides <span aria-hidden="true">→</span></a>
+            </div>
+            <ul class="topic-links">
+              {articles.filter(article => article.category === category.slug).slice(0, 6).map(article => (
+                <li><a href={'/' + article.slug + '/'}>{article.title}<span aria-hidden="true">↗</span></a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
   </section>
+
   <section class="how-section content-wide" aria-labelledby="how-title">
-    <div class="how-intro"><p class="section-label">Get to know your calculator</p><h2 id="how-title">From a quick check to a tricky question.</h2><p>Tap the keys or type an expression. Press <strong>=</strong> or <strong>Enter</strong> for the answer. Calculations run in your browser, ready whenever you need them.</p><a class="text-link" href="#calculator">Back to the calculator <span aria-hidden="true">↑</span></a></div>
+    <div class="how-intro">
+      <p class="section-label">Get to know your calculator</p>
+      <h2 id="how-title">From a quick check to a tricky question.</h2>
+      <p>Tap the keys or type an expression. Press <strong>=</strong> or <strong>Enter</strong> for the answer. Calculations run in your browser, ready whenever you need them.</p>
+      <a class="text-link" href="#calculator">Back to the calculator <span aria-hidden="true">↑</span></a>
+    </div>
     <div class="function-guides">
-      <details class="function-guide" open><summary>Everyday calculations <span aria-hidden="true">+</span></summary><p>Four operations, negative numbers, brackets and decimals. Multiplication comes before addition: <code>2 + 3 × 4 = 14</code>. A percentage such as <code>25%</code> is evaluated as <code>0.25</code>.</p></details>
-      <details class="function-guide"><summary>Scientific functions <span aria-hidden="true">+</span></summary><p>Open Scientific for roots, powers, factorials and more. Try <code>sqrt(81)</code>, <code>2^8</code> or <code>5!</code>. <code>sin(30)</code> uses degrees, <code>log(100)</code> uses base 10 and <code>ln(e)</code> uses the natural logarithm.</p></details>
-      <details class="function-guide"><summary>Keyboard shortcuts <span aria-hidden="true">+</span></summary><p>Type directly into the display. <kbd>Enter</kbd> calculates, <kbd>Backspace</kbd> deletes and <kbd>Esc</kbd> clears. Use <strong>C</strong> to start again or <strong>⌫</strong> to correct a character.</p></details>
+      <details class="function-guide" open>
+        <summary>Everyday calculations <span aria-hidden="true">+</span></summary>
+        <p>Four operations, negative numbers, brackets and decimals. Multiplication comes before addition: <code>2 + 3 × 4 = 14</code>. A percentage such as <code>25%</code> is evaluated as <code>0.25</code>.</p>
+      </details>
+      <details class="function-guide">
+        <summary>Scientific functions <span aria-hidden="true">+</span></summary>
+        <p>Open Scientific for roots, powers, factorials and more. Try <code>sqrt(81)</code>, <code>2^8</code> or <code>5!</code>. <code>sin(30)</code> uses degrees, <code>log(100)</code> uses base 10 and <code>ln(e)</code> uses the natural logarithm.</p>
+      </details>
+      <details class="function-guide">
+        <summary>Keyboard shortcuts <span aria-hidden="true">+</span></summary>
+        <p>Type directly into the display. <kbd>Enter</kbd> calculates, <kbd>Backspace</kbd> deletes and <kbd>Esc</kbd> clears. Use <strong>C</strong> to start again or <strong>⌫</strong> to correct a character.</p>
+      </details>
     </div>
   </section>
   <Activities />

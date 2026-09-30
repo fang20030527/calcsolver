@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --paper: #f3f0e8;
-  --surface: #faf8f2;
-  --ink: #293b32;
-  --muted: #626b62;
-  --line: #d6d8cc;
-  --accent: #b74d2b;
-  --accent-hover: #983c20;
-  --sans: 'DM Sans', 'Trebuchet MS', sans-serif;
-  --serif: 'Source Serif 4', Georgia, serif;
+  --paper: #f7f7f2;
+  --surface: #ffffff;
+  --ink: #242727;
+  --muted: #686c69;
+  --line: #dcded7;
+  --soft: #eeefe8;
+  --yellow: #f1ce55;
+  --accent: #67501b;
+  --accent-hover: #3f3010;
+  --focus: #9b7315;
+  --sans: 'Manrope', 'Trebuchet MS', sans-serif;
+  --serif: Georgia, serif;
   --mono: 'IBM Plex Mono', Consolas, monospace;
   --content: 1180px;
 }
