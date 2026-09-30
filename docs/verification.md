@@ -35,6 +35,15 @@
 - 可直接上传的包：`artifacts/calcsolver-info-cloudflare-pages.zip`。
 - 桌面截图：`artifacts/homepage-preview.jpg`。
 - 手机截图：`artifacts/mobile-preview.jpg`。
+- 线上截图：`artifacts/online-preview.jpg`。
 - 部署说明：`docs/deployment.md`。
 
 部署状态和线上地址以部署说明中的记录为准。
+
+## 线上补充验收
+
+网站已发布到 `https://calcsolver-info.pages.dev/`。线上输入 `2+3*4` 得到 `14`；代码 `3001` 能加载本站 2048 iframe，方向按钮能移动棋盘并生成新格。线上浏览器未捕获错误或警告日志。
+
+HTTP 检查确认线上 `robots.txt` 与 `sitemap.xml` 均返回 200；sitemap 包含 38 项，全部使用 `https://calcsolver.info`。
+
+`calcsolver.info` 的自定义域名尚待注册商名称服务器切换和 Cloudflare 激活，不能视为已正式开通。
