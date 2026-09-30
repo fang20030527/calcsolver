@@ -1,10 +1,19 @@
 # Deploy calcsolver.info
 
+## 自动部署状态 · 2026-09-30
+
+- GitHub 默认分支和生产分支均为 `main`。推送会自动运行检查，再发布到现有 Cloudflare Pages 项目 `calcsolver-info`。
+- 首次自动部署来自提交 `70cec4bdce91bdd5f5975f53e22f5f6c2e77fe87`，[Actions 运行 #1](https://github.com/fang20030527/calcsolver/actions/runs/36681672429)成功；安装依赖、完整验证和上传步骤均通过。
+- 本次部署地址为 [e8a79922.calcsolver-info.pages.dev](https://e8a79922.calcsolver-info.pages.dev/)，正式域名为 [calcsolver.info](https://calcsolver.info/)。
+- 正式域名首页只有一个 H1：`CalcSolver: Free online scientific calculator.`；canonical 为 `https://calcsolver.info/`，Organization、WebSite、WebPage 和 WebApplication JSON-LD 可解析。
+- 正式域名计算 `2+3*4` 得到 `14`；文章、分类、PNG 分享图、`robots.txt` 和 `sitemap.xml` 返回 200；不存在的路径返回 404，游戏页面响应包含 `X-Robots-Tag: noindex, follow`。
+- 部署令牌 `calcsolver-github-pages-deploy` 为账号级 Pages Write，保存于 GitHub 的 `CLOUDFLARE_API_TOKEN` 加密 Secret；控制台显示到期日为 **2027-10-01**。到期前更新该 Secret，避免后续部署失败。
+
 ## 手动部署记录 · 2026-09-30 视觉改版
 
 - 纸白、石墨黑与明黄的视觉新版已发布到 [calcsolver.info](https://calcsolver.info/)，备用地址为 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
 - Pages 项目：`calcsolver-info`，采用 Direct Upload；55 个文件均上传成功。
-- 最新生产部署：`991840f3-fd09-4bcc-a24b-9e609954c1d3`，环境为 Production，生产分支为 `main`。
+- 该次手动生产部署：`991840f3-fd09-4bcc-a24b-9e609954c1d3`，环境为 Production，生产分支为 `main`。
 - 发布源码为已推送的视觉提交 `79e18036e236ee85348ff23079b109e944753bdd`。从该提交的独立快照构建，通过 Cloudflare 控制台上传；工作区中尚未提交的 SEO 修改未包含在本次发布中。
 - 发布前 `npm run verify` 通过：Astro 检查无错误或警告、28 项测试通过、41 个 HTML 页面、720 个本地链接和 38 个 sitemap URL 检查通过。
 - 正式域名计算 `2+3*4` 得到 `14`；375px 手机布局没有水平溢出，浏览器没有错误或警告日志。

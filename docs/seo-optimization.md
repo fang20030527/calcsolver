@@ -1,6 +1,6 @@
 # SEO 优化记录 · 2026-09-30
 
-本次针对现有 Astro 网站做增量修改。线上检查时，首页返回 200，H1 为 `Make sense of the numbers.`，没有 JSON-LD；`robots.txt` 同时阻止了带 `noindex` 的游戏页面。以下改动已在本地构建验收，尚未发布到正式域名。
+本次针对现有 Astro 网站做增量修改。修改前线上检查时，首页返回 200，H1 为 `Make sense of the numbers.`，没有 JSON-LD；`robots.txt` 同时阻止了带 `noindex` 的游戏页面。以下改动已通过本地构建验收，并通过 [首次 GitHub Actions 自动部署](https://github.com/fang20030527/calcsolver/actions/runs/36681672429)发布到正式域名。
 
 ## 已完成的修改
 
@@ -20,12 +20,13 @@
 - 可索引页面的元数据唯一，JSON-LD 可解析，canonical 和分享 URL 一致。
 - 375px 手机与 1365px 桌面布局没有水平溢出；首页包含完整主关键词，计算器 `2+3*4` 得到 `14`。
 - 抽查 `1/3` 转换文章：近似数值说明、作者链接、面包屑和对应等值分数链接正常。
+- 正式域名验证：首页 H1 为 `CalcSolver: Free online scientific calculator.`，canonical 与 PNG 分享图指向正式域名，四种首页 JSON-LD 类型可解析，计算器 `2+3*4` 得到 `14`；文章、分类、robots 和 sitemap 返回 200。
 
-构建产物位于 `dist/`。上传包通过 `scripts/package-pages.ps1` 生成，位于 `artifacts/calcsolver-info-cloudflare-pages.zip`；部署方式见 [deployment.md](deployment.md)。
+构建产物位于 `dist/`。推送到 `main` 后由 GitHub Actions 自动验证并发布；手动上传包仍可通过 `scripts/package-pages.ps1` 生成。部署方式见 [deployment.md](deployment.md)。
 
 ## 发布后的检查
 
-1. 确认正式域名首页 H1 已变为新关键词标题，且 `og-image.png`、`robots.txt`、`sitemap.xml` 返回 200；随机不存在的路径应返回 404。
+1. 已确认正式域名首页 H1 为新关键词标题，且 `og-image.png`、`robots.txt`、`sitemap.xml` 返回 200；随机不存在的路径返回 404，游戏页面响应包含 `X-Robots-Tag: noindex, follow`。
 2. 在域名所有者的 Google Search Console 中提交 `https://calcsolver.info/sitemap.xml`，抽查首页、分类与文章的 URL 检查结果。当前没有使用已验证的 Search Console 账户，也没有实际提交 sitemap 或请求收录。
 3. 用 [Rich Results Test](https://search.google.com/test/rich-results) 验证发布后的文章与面包屑。结构化数据帮助理解页面，但不保证富结果、收录或排名。
 4. 后续以 Search Console 的展示、点击、查询和页面索引报告为基线；有真实流量后再测量 Core Web Vitals。Contact 页仍需站长配置一个实际可用的支持邮箱。
