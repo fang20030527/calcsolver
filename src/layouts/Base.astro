@@ -1,9 +1,21 @@
 ---
 import { site, categories } from '../data/site';
+import FontLinks from '../components/FontLinks.astro';
+import { canonicalUrl, pageStructuredData, serializeStructuredData, type Breadcrumb, type StructuredData } from '../lib/seo';
 import '../styles/site.css';
-interface Props { title?: string; description?: string; noindex?: boolean }
-const { title = 'CalcSolver | Free Online Calculator & Math Tools', description = site.description, noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, site.url).href;
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  pageType?: 'WebPage' | 'CollectionPage' | 'AboutPage' | 'ContactPage';
+  ogType?: 'website' | 'article';
+  breadcrumbs?: Breadcrumb[];
+  structuredData?: StructuredData[];
+}
+const { title = 'Free Online Scientific Calculator & Math Guides | CalcSolver', description = site.description, noindex = false, pageType = 'WebPage', ogType = 'website', breadcrumbs = [], structuredData = [] } = Astro.props;
+const canonical = canonicalUrl(Astro.url.pathname);
+const schema = pageStructuredData(Astro.url.pathname, title, description, pageType, breadcrumbs, structuredData);
+const image = `${site.url}/og-image.png`;
 ---
 <!doctype html>
 <html lang="en">
@@ -12,16 +24,28 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:type" content="website" />
+    <FontLinks />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:image" content={`${site.url}/og-image.svg`} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CalcSolver — free online calculator and clear math guides" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content="CalcSolver — free online calculator and clear math guides" />
     <meta name="theme-color" content="#f7f7f2" />
+    {!noindex && <script type="application/ld+json" is:inline set:html={serializeStructuredData(schema)} />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

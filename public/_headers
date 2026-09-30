@@ -5,3 +5,4 @@
   Content-Security-Policy: frame-ancestors 'self'
 /games/*
   Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex, follow

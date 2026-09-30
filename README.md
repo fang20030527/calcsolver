@@ -22,6 +22,8 @@ npm run preview
 
 See [visual refresh notes](docs/visual-refresh.md) for the current design and browser verification.
 
+See [SEO optimization notes](docs/seo-optimization.md) for keyword headings, structured data, indexing rules, sharing metadata and post-deployment checks.
+
 ## Features
 
 - Paper white, graphite and yellow visual system with Manrope typography; responsive homepage, scientific calculator and math reference directory.

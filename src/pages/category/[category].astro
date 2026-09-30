@@ -2,10 +2,27 @@
 import Base from '../../layouts/Base.astro';
 import { categories } from '../../data/site';
 import { articles } from '../../data/articles';
+import { canonicalUrl } from '../../lib/seo';
 export function getStaticPaths() { return categories.map(category=>({params:{category:category.slug},props:{category}})); }
 const { category } = Astro.props;
 const topics = articles.filter(article=>article.category===category.slug);
+const introductions: Record<string, string> = {
+  algebra: 'Start with expressions and the distributive property before moving on to factoring and polynomial division. Each guide explains a rule, works through an example and shows what to check. Use the numeric calculator to check substituted values; solve symbolic equations using the methods in the guides.',
+  'percent-and-decimal': 'To convert a fraction, divide its numerator by its denominator, then multiply by 100 for a percentage. Choose a fraction below for its answer, a diagram and the calculation. Terminating decimals are exact; repeating decimals are marked as rounded so you can choose the precision you need.',
+  'equivalent-fractions': 'Equivalent fractions use different numerators and denominators to describe the same share of a whole. Choose a fraction below to see multiples, a diagram and a cross-multiplication check. Every example multiplies both parts by the same nonzero number and explains why the value stays the same.',
+};
+const descriptions: Record<string, string> = {
+  algebra: `Learn basic algebra with ${topics.length} worked guides on expressions, formulas, factoring and polynomial division. Follow clear examples and check each method.`,
+  'percent-and-decimal': `Convert fractions to decimals and percentages with ${topics.length} worked guides. See exact or rounded answers, fraction diagrams and step-by-step calculations.`,
+  'equivalent-fractions': `Find equivalent fractions with ${topics.length} worked guides. See fraction diagrams, tables of multiples and cross-multiplication checks that explain each answer.`,
+};
+const description = descriptions[category.slug];
+const canonical = canonicalUrl(`/category/${category.slug}/`);
 ---
-<Base title={`${category.heading} | Math Guides | CalcSolver`} description={category.description}>
-  <div class="page-shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span> / </span><span>{category.heading}</span></nav><span class="section-label">{topics.length} CLEAR EXPLANATIONS</span><h1>{category.heading}</h1><p class="page-lead">{category.description} Start with a question and work through the answer at your own pace.</p><ul class="category-topic-list">{topics.map(article=><li><a href={`/${article.slug}/`}><div><h2>{article.title}</h2><p>{article.description}</p></div><span aria-hidden="true">↗</span></a></li>)}</ul><div class="calculator-cta"><span>Have a calculation to check?</span><a href="/#calculator">Open the calculator →</a></div></div>
+<Base title={`${category.heading} | Math Guides | CalcSolver`} description={description} pageType="CollectionPage" breadcrumbs={[{ name: 'Home', path: '/' }, { name: category.heading, path: `/category/${category.slug}/` }]} structuredData={[{
+  '@type': 'ItemList', '@id': `${canonical}#guides`, name: `${category.heading} guides`, numberOfItems: topics.length,
+  mainEntityOfPage: { '@id': `${canonical}#webpage` },
+  itemListElement: topics.map((article, index) => ({ '@type': 'ListItem', position: index + 1, name: article.title, url: canonicalUrl(`/${article.slug}/`) })),
+}]}>
+  <div class="page-shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><span aria-current="page">{category.heading}</span></nav><span class="section-label">{topics.length} CLEAR EXPLANATIONS</span><h1>{category.heading}</h1><p class="page-lead">{category.description} Start with a question and work through the answer at your own pace.</p><p>{introductions[category.slug]}</p><ul class="category-topic-list">{topics.map(article=><li><a href={`/${article.slug}/`}><div><h2>{article.title}</h2><p>{article.description}</p></div><span aria-hidden="true">↗</span></a></li>)}</ul><aside class="related-topics"><h2>Explore more math guides</h2><ul>{categories.filter(item => item.slug !== category.slug).map(item => <li><a href={`/category/${item.slug}/`}>{item.heading} →</a></li>)}</ul></aside><div class="calculator-cta"><span>Have a calculation to check?</span><a href="/#calculator">Open the calculator →</a></div></div>
 </Base>

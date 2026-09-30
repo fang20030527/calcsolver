@@ -4,6 +4,7 @@ export interface Section { heading: string; paragraphs: string[]; example?: stri
 export interface Article {
   slug: string;
   title: string;
+  seoTitle?: string;
   category: CategorySlug;
   description: string;
   kind: 'percent' | 'equivalent' | 'algebra';
@@ -18,7 +19,7 @@ const equivalentPairs = [[13,17],[11,17],[11,13],[8,9],[4,7],[1,7],[7,9],[2,9],[
 const algebra: Article[] = [
   {
     slug: 'remainder-theorem', title: 'What Is the Remainder Theorem?', category: 'algebra', kind: 'algebra',
-    description: 'Find the remainder of a polynomial division by evaluating the polynomial at one number.',
+    description: 'Use the remainder theorem to find the remainder of polynomial division. Follow a worked example, see why P(a) gives the answer and connect it to factors.',
     sections: [
       { heading: 'The rule', paragraphs: ['When a polynomial P(x) is divided by x − a, the remainder is P(a). Substitute a into the polynomial instead of doing a full division.'], example: 'P(x) = x² + 3x + 2. Dividing by x − 2 gives a remainder of P(2) = 4 + 6 + 2 = 12.' },
       { heading: 'Why it works', paragraphs: ['Polynomial division writes P(x) = (x − a)Q(x) + r. Setting x = a makes the first term zero, leaving P(a) = r.'] },
@@ -27,7 +28,7 @@ const algebra: Article[] = [
   },
   {
     slug: 'dividing-polynomials-by-binomials', title: 'Dividing Polynomials by Binomials', category: 'algebra', kind: 'algebra',
-    description: 'Use polynomial long division to divide an expression by a binomial, one term at a time.',
+    description: 'Learn polynomial long division by a binomial with a worked example. Divide, multiply and subtract each term, then check the quotient and remainder.',
     sections: [
       { heading: 'Start with the highest power', paragraphs: ['Write both polynomials in descending powers. Include a zero term for any missing power so that the columns line up. Divide the first term of the dividend by the first term of the divisor.'], example: '(x² + 5x + 6) ÷ (x + 2): x² ÷ x = x.' },
       { heading: 'Multiply, subtract, repeat', paragraphs: ['Multiply x by the whole divisor to get x² + 2x. Subtract this from the dividend to leave 3x + 6. Then 3x ÷ x = 3. Subtract 3(x + 2) and the remainder is zero.'], example: '(x² + 5x + 6) ÷ (x + 2) = x + 3.' },
@@ -36,7 +37,7 @@ const algebra: Article[] = [
   },
   {
     slug: 'factor-polynomials', title: 'How to Factor Polynomials', category: 'algebra', kind: 'algebra',
-    description: 'Recognize common factors, differences of squares and quadratic patterns.',
+    description: 'Learn how to factor polynomials using common factors, differences of squares and monic quadratic patterns, with a worked example for each method.',
     sections: [
       { heading: 'Take out a common factor', paragraphs: ['First find the greatest factor shared by every term. Taking it outside the brackets makes the remaining expression easier to recognize.'], example: '6x² + 9x = 3x(2x + 3).' },
       { heading: 'Look for a difference of squares', paragraphs: ['A squared quantity minus another squared quantity factors into a difference multiplied by a sum.'], example: 'a² − b² = (a − b)(a + b), so x² − 16 = (x − 4)(x + 4).' },
@@ -45,7 +46,8 @@ const algebra: Article[] = [
   },
   {
     slug: 'polynomial-definition-and-example-types-of-polynomial', title: 'Polynomials: Definition, Examples and Types', category: 'algebra', kind: 'algebra',
-    description: 'Understand terms, coefficients, degree and the names of common polynomial types.',
+    seoTitle: 'Polynomial Definition, Examples & Types',
+    description: 'Understand polynomial terms, coefficients and degree. Compare monomials, binomials and trinomials, and learn to combine like terms with clear examples.',
     sections: [
       { heading: 'What is a polynomial?', paragraphs: ['A polynomial is a sum of terms with constant coefficients and nonnegative integer powers of variables. Division by a variable and fractional powers of a variable are not polynomial terms.'], example: '3x² − 2x + 7 is a polynomial. 1/x and √x are not polynomials in x.' },
       { heading: 'Terms and degree', paragraphs: ['The degree of a polynomial in one variable is its highest power with a nonzero coefficient. A constant nonzero polynomial has degree zero.'], bullets: ['Monomial: one term, such as 5x³.', 'Binomial: two terms, such as x + 4.', 'Trinomial: three terms, such as x² + 2x + 1.'] },
@@ -54,7 +56,7 @@ const algebra: Article[] = [
   },
   {
     slug: 'basic-algebra-formula', title: 'Basic Algebra Formulas with Examples', category: 'algebra', kind: 'algebra',
-    description: 'A short reference for expanding brackets, multiplying expressions and solving linear equations.',
+    description: 'Review basic algebra formulas for expanding brackets, squares of sums and differences, and linear equations. Each rule includes a worked example.',
     sections: [
       { heading: 'The distributive property', paragraphs: ['Multiply the outside factor by every term inside the brackets. This works in reverse when you factor an expression.'], example: 'a(b + c) = ab + ac. For example, 3(x + 4) = 3x + 12.' },
       { heading: 'Squares of sums and differences', paragraphs: ['Squaring brackets means multiplying them by themselves. Include the middle term from both cross-products.'], example: '(a + b)² = a² + 2ab + b²; (a − b)² = a² − 2ab + b².' },
@@ -63,7 +65,7 @@ const algebra: Article[] = [
   },
   {
     slug: 'algebraic-fractions', title: 'Algebraic Fractions: Worked Examples', category: 'algebra', kind: 'algebra',
-    description: 'Simplify, add and multiply fractions containing variables while keeping domain restrictions.',
+    description: 'Simplify, add, multiply and divide algebraic fractions with worked examples. Learn to cancel factors, find common denominators and check restrictions.',
     sections: [
       { heading: 'Cancel factors, not terms', paragraphs: ['Factor the numerator and denominator before cancelling common factors. A denominator may never be zero.'], example: '(x² − 4)/(x + 2) = x − 2, with x ≠ −2.' },
       { heading: 'Find a common denominator', paragraphs: ['When adding fractions, rewrite each one using the same denominator, then add the numerators.'], example: '1/x + 1/(x + 1) = (2x + 1)/(x(x + 1)), with x ≠ 0 and x ≠ −1.' },
@@ -72,7 +74,8 @@ const algebra: Article[] = [
   },
   {
     slug: 'algebraic-expressions-types-operations-and-examples', title: 'Algebraic Expressions: Operations and Examples', category: 'algebra', kind: 'algebra',
-    description: 'Learn how variables, coefficients and operations fit together in an algebraic expression.',
+    seoTitle: 'Algebraic Expressions: Types & Examples',
+    description: 'Learn how variables, coefficients and operations form algebraic expressions. Evaluate a variable, combine like terms and compare expressions with equations.',
     sections: [
       { heading: 'Expressions and equations', paragraphs: ['An expression represents a value; an equation states that two expressions are equal. A variable stands for a number that may change or needs to be found.'], example: '2x + 5 is an expression. 2x + 5 = 11 is an equation.' },
       { heading: 'Evaluate an expression', paragraphs: ['Substitute a value for each variable, then follow the order of operations. Use brackets when substituting a negative value.'], example: 'If x = −3, then x² + 2x = (−3)² + 2(−3) = 3.' },

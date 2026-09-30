@@ -1,19 +1,34 @@
 ---
 import Base from '../layouts/Base.astro';
 import { articles, fractionInfo } from '../data/articles';
-import { categories } from '../data/site';
+import { categories, site } from '../data/site';
+import { canonicalUrl } from '../lib/seo';
 export function getStaticPaths() { return articles.map(article=>({params:{slug:article.slug},props:{article}})); }
 const { article } = Astro.props;
 const category = categories.find(item=>item.slug===article.category)!;
 const n = article.numerator ?? 0;
 const d = article.denominator ?? 1;
 const info = fractionInfo(n,d);
-const related = articles.filter(item=>item.category===article.category && item.slug!==article.slug).slice(0,4);
+const sameFraction = articles.filter(item => item.slug !== article.slug && item.kind !== article.kind && item.numerator === n && item.denominator === d);
+const related = [...sameFraction, ...articles.filter(item=>item.category===article.category && item.slug!==article.slug)].slice(0,4);
+const canonical = canonicalUrl(`/${article.slug}/`);
+const description = article.kind === 'percent'
+  ? `${n}/${d} ${info.approximate ? 'is approximately' : 'equals'} ${info.decimal} as a decimal and ${info.percent}%. See the fraction diagram, conversion steps and ${info.approximate ? 'rounding explanation' : 'worked examples'} on CalcSolver.`
+  : article.kind === 'equivalent'
+    ? `Fractions equivalent to ${n}/${d} include ${n*2}/${d*2} and ${n*3}/${d*3}. See more examples, a fraction diagram and how to check equivalence by cross-multiplication.`
+    : article.description;
+const breadcrumbs = [{ name: 'Home', path: '/' }, { name: category.heading, path: `/category/${category.slug}/` }, { name: article.title, path: `/${article.slug}/` }];
 ---
-<Base title={`${article.title} | CalcSolver`} description={article.description}>
+<Base title={`${article.seoTitle ?? article.title} | CalcSolver`} description={description} ogType="article" breadcrumbs={breadcrumbs} structuredData={[{
+  '@type': 'Article', '@id': `${canonical}#article`, headline: article.title, description,
+  url: canonical, mainEntityOfPage: { '@id': `${canonical}#webpage` },
+  author: { '@id': `${site.url}/#organization` }, publisher: { '@id': `${site.url}/#organization` },
+  inLanguage: 'en', articleSection: category.heading,
+  about: { '@type': 'Thing', name: category.heading },
+}]}>
   <article class="page-shell">
-    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span> / </span><a href={`/category/${category.slug}/`}>{category.name}</a></nav>
-    <header class="article-header"><span class="section-label">{category.heading.toUpperCase()}</span><h1>{article.title}</h1><p>{article.description}</p><div class="article-meta"><span>CalcSolver Math Guides</span><span>{article.kind==='algebra'?'3':'2'} minute read</span></div></header>
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href={`/category/${category.slug}/`}>{category.heading}</a><span aria-hidden="true"> / </span><span aria-current="page">{article.title}</span></nav>
+    <header class="article-header"><span class="section-label">{category.heading.toUpperCase()}</span><h1>{article.title}</h1><p>{article.description}</p><div class="article-meta"><span>Math guides by <a href="/about/">CalcSolver</a></span><span>{article.kind==='algebra'?'3':'2'} minute read</span></div></header>
     {article.kind==='percent' && <>
       <div class="answer-card"><div class="fraction-visual" style={`--fraction:${n/d*100}%`} role="img" aria-label={`${n} of ${d} equal parts shaded`}></div><div><span class="answer-label">THE QUICK ANSWER</span><div class="answer-equation"><span>{n}/{d}</span><span>{info.approximate?'≈':'='}</span><strong>{info.decimal}</strong><span>{info.approximate?'≈':'='}</span><strong>{info.percent}%</strong></div><p>{info.approximate?'Decimal and percent values are rounded.':'Three ways to write the same value.'}</p></div></div>
       <div class="article-body"><h2>From a fraction to a decimal</h2><p>The top number is the numerator; the bottom number is the denominator. To convert {n}/{d}, divide {n} by {d}.</p><p class="worked-example">{n} ÷ {d} {info.approximate?'≈':'='} {info.decimal}</p><p>{info.approximate?'This fraction has a repeating decimal. The value shown above is rounded to six decimal places.':'The division ends exactly, so the decimal shown is exact.'}</p><h2>From a decimal to a percentage</h2><p>A percentage measures a value out of one hundred. Multiply the decimal by 100 and write a percent sign.</p><p class="worked-example">({n} ÷ {d}) × 100 {info.approximate?'≈':'='} {info.percent}%</p><h2>Conversion at a glance</h2><table class="conversion-table"><thead><tr><th>Fraction</th><th>Decimal</th><th>Percent</th></tr></thead><tbody><tr><td>{n}/{d}</td><td>{info.approximate?'≈ ':''}{info.decimal}</td><td>{info.approximate?'≈ ':''}{info.percent}%</td></tr></tbody></table><h2>Picture the value</h2><p>Imagine a whole divided into {d} equal pieces. Taking {n} of those pieces gives you {n}/{d} of the whole. The shaded portion in the circle above shows this share.</p><h2>Check your method</h2><p>Always divide the numerator by the denominator, in that order. To turn a percentage back into a decimal, divide by 100. If you need an exact answer for a repeating value, keep the fraction instead of rounding it.</p></div>
