@@ -1,11 +1,14 @@
 # Deploy calcsolver.info
 
-## 当前部署状态 · 2026-09-30 视觉改版
+## 当前部署状态 · 2026-09-30 视觉改版重新部署
 
-- 书刊式视觉新版已发布到 [calcsolver.info](https://calcsolver.info/)，备用地址为 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
+- 纸白、石墨黑与明黄的视觉新版已发布到 [calcsolver.info](https://calcsolver.info/)，备用地址为 [calcsolver-info.pages.dev](https://calcsolver-info.pages.dev/)。
 - Pages 项目：`calcsolver-info`，采用 Direct Upload；55 个文件均上传成功。
-- 最新生产部署：`7c0afadb-390b-490f-b2bc-1856f806240a`。
-- 新版已完成计算器、手机布局、分类与文章、活动目录及本站游戏验收；Pages 线上示例得到 `14`，预览没有错误或警告日志。
+- 最新生产部署：`991840f3-fd09-4bcc-a24b-9e609954c1d3`，环境为 Production，生产分支为 `main`。
+- 发布源码为已推送的视觉提交 `79e18036e236ee85348ff23079b109e944753bdd`。从该提交的独立快照构建，通过 Cloudflare 控制台上传；工作区中尚未提交的 SEO 修改未包含在本次发布中。
+- 发布前 `npm run verify` 通过：Astro 检查无错误或警告、28 项测试通过、41 个 HTML 页面、720 个本地链接和 38 个 sitemap URL 检查通过。
+- 正式域名计算 `2+3*4` 得到 `14`；375px 手机布局没有水平溢出，浏览器没有错误或警告日志。
+- 正式域名加载的 `/_astro/Base.DXDX2RVL.css` 与本次构建的 SHA-256 完全一致，主题色为 `#f7f7f2`。首页、示例文章、`robots.txt`、`sitemap.xml` 和备用域名均返回 200。
 - Cloudflare 控制台已显示 `calcsolver.info` DNS 区域为 Active。已在本项目添加正式域名，确认将根域 A 记录更新为代理 CNAME：`calcsolver.info` → `calcsolver-info.pages.dev`。
 - Pages 自定义域名已显示 Active 与 SSL enabled。正式域名首页、`robots.txt` 和 `sitemap.xml` 均返回 200；浏览器计算 `2+3*4` 得到 `14`，页面加载的最终样式文件与本地构建一致。
 
@@ -29,7 +32,7 @@ The static site is in `dist/`. Keep the project source and lockfile in version c
 
 ## Cloudflare Pages
 
-这是本项目已选定的部署平台。当前仓库尚未连接远程 Git 仓库，可先上传构建包。
+这是本项目已选定的部署平台。源码已推送到 [GitHub 仓库](https://github.com/fang20030527/calcsolver)，视觉提交位于 `codex/calcsolver-info` 分支。当前 Pages 项目采用 Direct Upload，Git 推送后需要单独上传构建包才能更新生产网站。
 
 Windows 上运行 `./scripts/package-pages.ps1`，生成 `artifacts/calcsolver-info-cloudflare-pages.zip`。上传包内的 `index.html` 位于根目录，包含本站所有页面与资源。
 
