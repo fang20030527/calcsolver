@@ -34,7 +34,7 @@ See [SEO optimization notes](docs/seo-optimization.md) for keyword headings, str
 - Activity search, source selection, player, recommendations, restart and fullscreen controls.
 - 31 original math guides, 3 category pages, About, Contact, Privacy and 404.
 - `.info` canonical metadata, robots and sitemap.
-- Self-hosted Plausible analytics for production visits to `calcsolver.info`.
+- Google Analytics 4 and self-hosted Plausible analytics for production visits to `calcsolver.info`.
 
 ## Important configuration
 
@@ -42,7 +42,7 @@ See [SEO optimization notes](docs/seo-optimization.md) for keyword headings, str
 - External activities: `src/data/activities.json`.
 - Approved embed hosts and local entries: `src/lib/activities.ts`.
 - Math topics: `src/data/articles.ts`.
-- Analytics: `src/components/Analytics.astro`, using the dedicated `calcsolver.info` script from `stats.blackholeenglish.com`. It is included in production builds and initialized only on the canonical hostname; local development and `pages.dev` previews do not send events.
+- Analytics: `src/components/Analytics.astro`, using Google Analytics 4 measurement ID `G-WYZ9L2YKRH` alongside the dedicated `calcsolver.info` Plausible script from `stats.blackholeenglish.com`. Both are included in production builds and initialized only on the canonical hostname; local development and `pages.dev` previews do not send events.
 - Create a real support mailbox, then set `PUBLIC_CONTACT_EMAIL` in the deployment environment and rebuild. An empty value produces no email link; the website does not assume a mailbox exists.
 
 The catalog is a snapshot of public metadata observed at CalcSolver.net on 2026-09-30. External game files and thumbnails remain on the provider's servers. Only local games are self-contained; external availability, provider advertising and embedding permissions can change. The other reference-site server APIs were inaccessible and are not presented as working mirrors.

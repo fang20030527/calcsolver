@@ -83,7 +83,9 @@ Create a working contact mailbox before setting `PUBLIC_CONTACT_EMAIL`. The cont
 
 Self-hosted Plausible analytics is configured in `src/components/Analytics.astro` with the dedicated `calcsolver.info` script: `https://stats.blackholeenglish.com/js/pa-SrqWkZG1nlPuPTtAm1TeR.js`. The site is registered in the existing Plausible instance with reporting timezone `Asia/Shanghai`. The component is included in all page heads, including local games, and initializes only on `calcsolver.info` in production builds. Development and `pages.dev` previews do not send analytics events.
 
-The privacy policy describes page views, engagement, outbound links, downloads and form submission events. Calculator expressions and results are not sent. No first-party ads are included. If the analytics host or tracking settings change, update the component and policy together.
+Google Analytics 4 is also configured in the same component with measurement ID `G-WYZ9L2YKRH`, using the Google tag (`gtag.js`). It initializes once per page only on `calcsolver.info` in production builds. The shared layout and both local game pages include this component, so every generated page has the tag. Development and `pages.dev` previews do not configure Google Analytics or send events.
+
+The privacy policy describes both analytics services, including Google Analytics cookies, page views, engagement, outbound links, downloads and form submission events. No custom events containing calculator expressions or results are sent. No first-party ads are included. If the analytics host or tracking settings change, update the component and policy together.
 
 ## Activity sources
 

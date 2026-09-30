@@ -3,6 +3,17 @@ const enabled = import.meta.env.PROD;
 ---
 {enabled && (
   <>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-WYZ9L2YKRH"></script>
+    <script is:inline>
+      // Keep development and deployment previews out of production statistics.
+      if (window.location.hostname === 'calcsolver.info') {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){window.dataLayer.push(arguments);};
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-WYZ9L2YKRH');
+      }
+    </script>
     <script is:inline async src="https://stats.blackholeenglish.com/js/pa-SrqWkZG1nlPuPTtAm1TeR.js"></script>
     <script is:inline>
       // Keep development and deployment previews out of production statistics.
